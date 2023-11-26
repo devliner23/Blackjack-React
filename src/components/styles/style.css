@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
+
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; 
+    background-image: url('../assets/background.jpg'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    font-family: 'New Rocker', cursive;
+
+}
+
+.game-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    width: 60vw;
+}
+
+.player-dealer-cards {
+    display: flex;
+    flex-direction: row;
+    justify-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.player-card-div, .dealer-card-div {
+    border: solid white;
+}

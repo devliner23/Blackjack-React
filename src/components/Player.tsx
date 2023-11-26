@@ -88,6 +88,5 @@ const Player = ({ playerHand }: { playerHand: Card[] }) => {
           <p>Hand Value: {calculateHandValue()}</p>
         </div>
       );
-    };
-
+     }      
 export default Player;

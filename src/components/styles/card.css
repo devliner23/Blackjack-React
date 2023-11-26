@@ -1,8 +1,14 @@
 .card {
-    font-size: 100px; 
+    font-size: 175px; 
+    color: white;
 }
 
 .card-red {
     color: red;
-    font-size: 100px;
+    font-size: 175px;
+}
+
+.card, .card-red {
+    background-color: transparent; /* No background */
+    margin: 5px;
 }

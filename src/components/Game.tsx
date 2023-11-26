@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import Player from './Player';
 import Dealer from './Dealer';
 import { Card, getNewShuffledDeck } from './Card';
+import InputSlider from './InputSlider';
+import { Button } from '@mui/material';
 import './styles/style.css'
 
 
@@ -176,44 +178,50 @@ const Game = () => {
   };  
 
   return (
-    <div>
-      <h1>Blackjack Game</h1>
-
-      {!gameStarted && (
-        <div>
-          <h2>Place your bet:</h2>
-          <form onSubmit={handleBetSubmit}>
-            <input
-              type="number"
+    <div className='game-container p-4'>
+      <div className='game-box p-4 m-2'>
+        <h1>Blackjack Game</h1>
+        {!gameStarted && (
+          <div>
+            <h2>Place your bet:</h2>
+            <form className='m-4' onSubmit={handleBetSubmit}>
+              <InputSlider
               value={playerBet}
-              onChange={handleBetInputChange}
-              min={0}
+              setValue={setPlayerBet}
               max={playerPot}
-            />
-            <button type="submit">Start Game</button>
-          </form>
-        </div>
-      )}
-
-      {gameStarted && (
-        <div>
+              />
+              <Button className='m-4' variant="outlined" type="submit">Start Game</Button>
+            </form>
+          </div>
+        )}
+        {gameStarted && (
+          <div>
         
-            <Player playerHand={playerHand} /> {/* Pass playerHand as a prop */}
-
-            <button onClick={handleHit}>Hit</button>
-            <button onClick={handleStand}>Stand</button>
-
-            <Dealer dealerHand={dealerHand} />
-
-            <div>
-            <h2>{gameOutcome}</h2>
-            <button onClick={handleRestart}>Restart</button>
+        <div className='player-dealer-cards'>
+          <div className='row'>
+            <div className='col-md-6'>
+              <div className='player-card-div'>
+                <Player playerHand={playerHand} /> {/* Pass playerHand as a prop */}
+                <Button className='p-2 m-2' variant="outlined" onClick={handleHit}>Hit</Button>
+                <Button className='p-2 m-2' variant="outlined" onClick={handleStand}>Stand</Button>
+              </div>
             </div>
-
+            <div className='col-md-6'>
+              <div className='dealer-card-div'>
+                <Dealer dealerHand={dealerHand} hideSecondCard={!gameOutcome && !bust} />
+              </div>
+            </div>
+          </div>
         </div>
-      )}
-        <p>Player's Pot: ${playerPot}</p>
-        </div>
+              <div>
+              <h2>{gameOutcome}</h2>
+              <Button className='p-2 m-2' variant="outlined" onClick={handleRestart}>Restart</Button>
+              </div>
+          </div>
+        )}
+          <p>Player's Pot: ${playerPot}</p>
+      </div>
+    </div>
   );
 };
 

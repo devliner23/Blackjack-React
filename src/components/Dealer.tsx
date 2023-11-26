@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {Card} from './Card'; // Assuming Card component exports an array of cards
+import { Card } from './Card';
+import './styles/card.css';
 
-const Dealer = ({ dealerHand }: { dealerHand: Card[] }) => {
+const Dealer = ({ dealerHand, hideSecondCard }: { dealerHand: Card[]; hideSecondCard: boolean }) => {
   const [dealerCards, setDealerCards] = useState<Card[]>(dealerHand);
 
   const calculateHandValue = () => {
@@ -10,14 +11,30 @@ const Dealer = ({ dealerHand }: { dealerHand: Card[] }) => {
 
     dealerCards.forEach((card) => {
       switch (card.value) {
-        case 'Two': handValue += 2; break;
-        case 'Three': handValue += 3; break;
-        case 'Four': handValue += 4; break;
-        case 'Five': handValue += 5; break;
-        case 'Six': handValue += 6; break;
-        case 'Seven': handValue += 7; break;
-        case 'Eight': handValue += 8; break;
-        case 'Nine': handValue += 9; break;
+        case 'Two':
+          handValue += 2;
+          break;
+        case 'Three':
+          handValue += 3;
+          break;
+        case 'Four':
+          handValue += 4;
+          break;
+        case 'Five':
+          handValue += 5;
+          break;
+        case 'Six':
+          handValue += 6;
+          break;
+        case 'Seven':
+          handValue += 7;
+          break;
+        case 'Eight':
+          handValue += 8;
+          break;
+        case 'Nine':
+          handValue += 9;
+          break;
         case 'Ten':
         case 'Jack':
         case 'Queen':
@@ -28,7 +45,8 @@ const Dealer = ({ dealerHand }: { dealerHand: Card[] }) => {
           acesCount += 1;
           handValue += 11;
           break;
-        default: break;
+        default:
+          break;
       }
     });
 
@@ -40,6 +58,21 @@ const Dealer = ({ dealerHand }: { dealerHand: Card[] }) => {
     return handValue;
   };
 
+  function getCardColorClass(suit: string) {
+    switch (suit) {
+      case 'Spades':
+        return 'card'; // Use your CSS class for black cards
+      case 'Clubs':
+        return 'card'; // Use your CSS class for black cards
+      case 'Hearts':
+        return 'card-red'; // Use your CSS class for red cards
+      case 'Diamonds':
+        return 'card-red'; // Use your CSS class for red cards
+      default:
+        return ''; // Default class if suit is not recognized
+    }
+  }
+
   useEffect(() => {
     setDealerCards(dealerHand);
   }, [dealerHand]);
@@ -50,11 +83,11 @@ const Dealer = ({ dealerHand }: { dealerHand: Card[] }) => {
       <div style={{ display: 'flex', flexDirection: 'row' }}>
         {dealerCards.map((card, index) => (
           <div
-            className="card"
+            className={`card ${getCardColorClass(card.suit)}`}
             key={index}
             style={{ margin: '5px' }}
           >
-            {card.symbol}
+            {index === 1 && hideSecondCard ? 'X' : card.symbol}
           </div>
         ))}
       </div>
