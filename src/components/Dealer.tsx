@@ -80,18 +80,18 @@ const Dealer = ({ dealerHand, hideSecondCard }: { dealerHand: Card[]; hideSecond
   return (
     <div>
       <h2>Dealer's Cards</h2>
-      <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <div className='card-container'>
         {dealerCards.map((card, index) => (
           <div
             className={`card ${getCardColorClass(card.suit)}`}
             key={index}
             style={{ margin: '5px' }}
           >
-            {index === 1 && hideSecondCard ? 'X' : card.symbol}
+            {index === 1 && hideSecondCard ? '?' : card.symbol}
           </div>
         ))}
       </div>
-      <p>Hand Value: {calculateHandValue()}</p>
+      {!hideSecondCard && <p>Hand Value: {calculateHandValue()}</p>}
     </div>
   );
 };

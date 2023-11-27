@@ -23,7 +23,7 @@
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     text-align: center;
-    width: 60vw;
+    width: 90vw;
 }
 
 .player-dealer-cards {
@@ -36,4 +36,12 @@
 
 .player-card-div, .dealer-card-div {
     border: solid white;
+    padding: 10px;
+}
+
+.card-container {
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    margin: 5px;
 }

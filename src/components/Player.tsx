@@ -78,7 +78,7 @@ const Player = ({ playerHand }: { playerHand: Card[] }) => {
       return (
         <div>
           <h2>Player's Cards</h2>
-          <div style={{ display: 'flex', flexDirection: 'row' }}>
+          <div className='card-container'>
             {playerHand.map((card, index) => (
               <div className={`card ${getCardColorClass(card.suit)}`} key={index} style={{ margin: '5px' }}>
                 {card.symbol}
