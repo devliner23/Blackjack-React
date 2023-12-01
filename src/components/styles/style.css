@@ -30,18 +30,42 @@
     display: flex;
     flex-direction: row;
     justify-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 20px;
 }
 
 .player-card-div, .dealer-card-div {
     border: solid white;
     padding: 10px;
+    box-sizing: border-box;
+    overflow: auto;
+}
+
+.final-player-card-box, .dealer-card-div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .card-container {
     padding: 10px;
     display: flex;
     flex-direction: row;
-    margin: 5px;
+    margin: 10px;
 }
+
+/* Keyframes for fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Applying the animation to card elements */
+.card {
+    animation: fadeIn 1s ease-out;
+}
+

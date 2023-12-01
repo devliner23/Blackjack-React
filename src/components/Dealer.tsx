@@ -61,15 +61,15 @@ const Dealer = ({ dealerHand, hideSecondCard }: { dealerHand: Card[]; hideSecond
   function getCardColorClass(suit: string) {
     switch (suit) {
       case 'Spades':
-        return 'card'; // Use your CSS class for black cards
+        return 'card'; 
       case 'Clubs':
-        return 'card'; // Use your CSS class for black cards
+        return 'card'; 
       case 'Hearts':
-        return 'card-red'; // Use your CSS class for red cards
+        return 'card-red'; 
       case 'Diamonds':
-        return 'card-red'; // Use your CSS class for red cards
+        return 'card-red'; 
       default:
-        return ''; // Default class if suit is not recognized
+        return ''; 
     }
   }
 
@@ -87,7 +87,7 @@ const Dealer = ({ dealerHand, hideSecondCard }: { dealerHand: Card[]; hideSecond
             key={index}
             style={{ margin: '5px' }}
           >
-            {index === 1 && hideSecondCard ? '?' : card.symbol}
+            {index === 1 && hideSecondCard ? '🂠' : card.symbol}
           </div>
         ))}
       </div>

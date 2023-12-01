@@ -42,14 +42,14 @@ export default function InputSlider({ value, setValue, max }: InputSliderProps) 
             sx={{
               color: 'primary.main',
               '& .MuiSlider-thumb': {
-                backgroundColor: '#FF5733', // Example color for the thumb
+                backgroundColor: '#FF5733',
               },
               '& .MuiSlider-track': {
-                backgroundColor: '#FF5733', // Example color for the track
+                backgroundColor: '#FF5733', 
               },
               '& .MuiSlider-rail': {
                 opacity: 0.5,
-                backgroundColor: '#FF5733', // Example color for the rail
+                backgroundColor: '#FF5733', 
               },
             }}
             value={typeof value === 'number' ? value : 0}
@@ -62,7 +62,7 @@ export default function InputSlider({ value, setValue, max }: InputSliderProps) 
           <Input
             sx={{
               input: {
-                color: '#00BFFF', // Example text color
+                color: '#00BFFF', 
               },
             }}
             value={value}

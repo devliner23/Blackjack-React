@@ -4,6 +4,8 @@ import Dealer from './Dealer';
 import { Card, getNewShuffledDeck } from './Card';
 import InputSlider from './InputSlider';
 import { Button } from '@mui/material';
+import Confetti from 'react-confetti';
+import ModalComponent from './Modal';
 import './styles/style.css'
 
 
@@ -16,14 +18,19 @@ const Game = () => {
   const [gameOutcome, setGameOutcome] = useState<string | null>(null);
   const [bust, setBust] = useState(false);
   const [deck, setDeck] = useState<Card[]>([]);
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
 
   useEffect(() => {
-    setDeck(getNewShuffledDeck()); // Initialize a new shuffled deck
+    setDeck(getNewShuffledDeck()); 
   }, []);
 
   const dealCard = (): Card | undefined => {
     const card = deck.pop();
-    setDeck(deck => [...deck]); // Update the deck state
+    setDeck(deck => [...deck]); 
     return card;
   };
 
@@ -59,12 +66,10 @@ const Game = () => {
           handValue += 11;
           break;
         default:
-          // Optionally handle unexpected card values
           break;
       }
     });
   
-    // Adjust the value of Aces from 11 to 1 if the hand value exceeds 21
     while (handValue > 21 && acesCount > 0) {
       handValue -= 10;
       acesCount -= 1;
@@ -122,16 +127,14 @@ const Game = () => {
         dealerHandValue = calculateHandValue(dealerHandCopy);
   
         if (dealerHandValue > 21) {
+          setDealerHand(dealerHandCopy);
           endGame('Dealer busted! Player wins!');
           return;
         }
-      } else {
-        // Handle the case when no more cards are left in the deck
-        break;
-      }
+      } 
     }
   
-    setDealerHand(dealerHandCopy); // Update the dealer's displayed hand
+    setDealerHand(dealerHandCopy); 
   
     const playerHandValue = calculateHandValue(playerHand);
     if (dealerHandValue < playerHandValue) {
@@ -156,12 +159,10 @@ const Game = () => {
         setPlayerPot(playerPot - playerBet);
         break;
       case 'It was a tie!':
-        // No change to player's pot
         break;
       case 'Dealer busted! Player wins!':
         setPlayerPot(playerPot + playerBet);
         break;
-      // Handle any other outcomes if necessary
     }
   
     setBust(true);
@@ -174,11 +175,12 @@ const Game = () => {
     setDealerHand([]);
     setGameOutcome(null);
     setBust(false);
-    setDeck(getNewShuffledDeck()); // Reinitialize the deck
+    setDeck(getNewShuffledDeck()); 
   };  
 
   return (
     <div className='game-container p-4'>
+      { (gameOutcome === 'Player wins!' || gameOutcome === 'Dealer busted! Player wins!') && <Confetti numberOfPieces={750} recycle={false}/> }
       <div className='game-box p-4 m-2'>
         <h1>Blackjack Game</h1>
         {!gameStarted && (
@@ -190,7 +192,7 @@ const Game = () => {
               setValue={setPlayerBet}
               max={playerPot}
               />
-              <Button className='m-4' variant="outlined" type="submit">Start Game</Button>
+              <Button className='m-4' variant="outlined" type="submit" style={{ backgroundColor: 'black', color: 'white' }}>Start Game</Button>
             </form>
           </div>
         )}
@@ -201,9 +203,11 @@ const Game = () => {
           <div className='row'>
             <div className='col-md-6'>
               <div className='player-card-div'>
-                <Player playerHand={playerHand} /> {/* Pass playerHand as a prop */}
-                <Button className='p-2 m-2' variant="outlined" onClick={handleHit}>Hit</Button>
-                <Button className='p-2 m-2' variant="outlined" onClick={handleStand}>Stand</Button>
+                <div className='final-player-card-box'>
+                  <Player playerHand={playerHand} /> 
+                </div>
+                <Button className='p-2 m-2' variant="outlined" onClick={handleHit} style={{ backgroundColor: 'black', color: 'white' }}>Hit</Button>
+                <Button className='p-2 m-2' variant="outlined" onClick={handleStand} style={{ backgroundColor: 'black', color: 'white' }}>Stand</Button>
               </div>
             </div>
             <div className='col-md-6'>
@@ -215,11 +219,16 @@ const Game = () => {
         </div>
               <div>
               <h2>{gameOutcome}</h2>
-              <Button className='p-2 m-2' variant="outlined" onClick={handleRestart}>Restart</Button>
+              <Button className='p-2 m-2' variant="outlined" onClick={handleRestart} style={{ backgroundColor: 'black', color: 'white' }}>Restart</Button>
               </div>
           </div>
         )}
           <p>Player's Pot: ${playerPot}</p>
+          <div>
+            <Button onClick={handleOpen}>View Rules</Button>
+            <ModalComponent open={open} handleClose={handleClose} />
+          </div>
+
       </div>
     </div>
   );
